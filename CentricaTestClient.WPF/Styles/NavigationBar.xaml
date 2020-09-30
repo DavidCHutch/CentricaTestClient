@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CentricaTestClient.WPF.Styles">
+
+    <Style x:Key="NavButton" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{StaticResource BrushPolarNight1}"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Background" Value="{StaticResource BrushSnowStorm1}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid x:Name="gridMain" Background="{TemplateBinding Background}">
+                        <TextBlock x:Name="textMain"
+                            Text="{TemplateBinding Content}" 
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="{StaticResource BrushPolarNight1}" TargetName="gridMain"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushSnowStorm3}" TargetName="textMain"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource PolarNight1}" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"></ColorAnimation>
+                        <ColorAnimation To="{StaticResource SnowStorm3}" Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color"></ColorAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource SnowStorm1}" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"></ColorAnimation>
+                        <ColorAnimation To="{StaticResource PolarNight1}" Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color"></ColorAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

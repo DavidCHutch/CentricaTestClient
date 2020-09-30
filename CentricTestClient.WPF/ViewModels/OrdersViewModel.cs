@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CentricaTestClient.WPF.ViewModels
 {
-    public class ViewModelBase
+    public class OrdersViewModel : ViewModelBase
     {
     }
 }
