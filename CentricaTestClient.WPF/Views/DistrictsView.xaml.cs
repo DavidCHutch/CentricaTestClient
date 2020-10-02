@@ -18,9 +18,43 @@ namespace CentricaTestClient.WPF.Views
     /// </summary>
     public partial class DistrictsView : UserControl
     {
+		//TODO REPLACE THIS VIEW WITH ACTUAL DISTRICT DATA
         public DistrictsView()
-        {
-            InitializeComponent();
+		{
+			InitializeComponent();
+			List<User> userItems = new List<User>();
+			userItems.Add(new User() { Name = "John Doe", Age = 42 });
+			userItems.Add(new User() { Name = "Jane Doe", Age = 39 });
+			userItems.Add(new User() { Name = "Sammy Doe", Age = 13 });
+            DistrictListViewDataBinding.ItemsSource = userItems;
         }
-    }
+		private void ListViewItem_DoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var obj = (DependencyObject)e.OriginalSource;
+
+			while (obj != null && obj != DistrictListViewDataBinding)
+			{
+				if (obj.GetType() == typeof(ListViewItem))
+				{
+					// Do something here
+					MessageBox.Show("A ListViewItem was double clicked!");
+
+					break;
+				}
+				obj = VisualTreeHelper.GetParent(obj);
+			}
+		}
+
+		public class User
+		{
+			public string Name { get; set; }
+
+			public int Age { get; set; }
+
+			public override string ToString()
+			{
+				return this.Name + ", " + this.Age + " years old";
+			}
+		}
+	}
 }
