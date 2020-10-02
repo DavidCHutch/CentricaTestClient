@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CentricaTestClient.WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CentricaTestClient.WPF.ViewModels
 {
-    public class ViewModelBase
+    public class ViewModelBase : ObservableObject
     {
     }
 }
