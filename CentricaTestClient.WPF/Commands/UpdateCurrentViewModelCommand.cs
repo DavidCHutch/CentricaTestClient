@@ -1,4 +1,6 @@
-﻿using CentricaTestClient.WPF.States.Navigators;
+﻿using CentricaTestClient.CentricaTestAPI.Services;
+using CentricaTestClient.Domain.Services;
+using CentricaTestClient.WPF.States.Navigators;
 using CentricaTestClient.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,11 +33,11 @@ namespace CentricaTestClient.WPF.Commands
                 switch (viewType)
                 {
                     case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel();
+                        _navigator.CurrentViewModel = new HomeViewModel(DistrictViewModel.LoadDistrictsViewModel(new DistrictService(LoginViewModel._userName, LoginViewModel._passWord)));
                         break;
-                    case ViewType.Districts:
-                        _navigator.CurrentViewModel = new DistrictsViewModel();
-                        break;
+                    //case ViewType.Districts:
+                    //    _navigator.CurrentViewModel = new DistrictsViewModel();
+                    //    break;
                     case ViewType.Orders:
                         _navigator.CurrentViewModel = new OrdersViewModel();
                         break;
@@ -43,6 +45,6 @@ namespace CentricaTestClient.WPF.Commands
                         break;
                 }
             }
-        }
+         }
     }
 }

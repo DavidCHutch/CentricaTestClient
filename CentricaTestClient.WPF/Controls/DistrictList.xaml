@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="CentricaTestClient.WPF.Views.District.DistrictsView"
+﻿<UserControl x:Class="CentricaTestClient.WPF.Controls.DistrictList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CentricaTestClient.WPF.Views"
-             xmlns:viewmodels="clr-namespace:CentricaTestClient.WPF.ViewModels"
+             xmlns:local="clr-namespace:CentricaTestClient.WPF.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <ListView Margin="10" ItemsSource="{Binding Districts}" IsSynchronizedWithCurrentItem="True">
+    <Grid Background="Transparent">
+        <ListView Margin="10" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Districts}" SelectedItem="{Binding SelectedDistrict}">
             <ListView.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ListViewItem_DoubleClick}" CommandParameter="{Binding Districts/}"/>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenNewWindowFromListItemCommand}" CommandParameter="{Binding SelectedDistrict}"/>
             </ListView.InputBindings>
             <!--<ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -18,20 +18,18 @@
                 </Style>
             </ListView.ItemContainerStyle>-->
             <ListView.View>
-                    <GridView>
-                    <!--TODO This must be changed-->
-                        <GridViewColumn Width="Auto" 
+                <GridView>
+                    <GridViewColumn Width="Auto" 
                                                         DisplayMemberBinding="{Binding ID}"
                                                         Header="ID" />
-                        <GridViewColumn Width="Auto" 
+                    <GridViewColumn Width="Auto" 
                                                         DisplayMemberBinding="{Binding Name}"
                                                         Header="Name" />
-                        <GridViewColumn Width="Auto"
+                    <GridViewColumn Width="Auto"
                                                         DisplayMemberBinding="{Binding Number}"
                                                         Header="Number" />
-                    </GridView>
-                </ListView.View>
+                </GridView>
+            </ListView.View>
         </ListView>
-        
     </Grid>
 </UserControl>

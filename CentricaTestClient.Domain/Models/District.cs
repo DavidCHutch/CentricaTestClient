@@ -11,6 +11,6 @@ namespace CentricaTestClient.Domain.Models
         public string Name { get; set; }
         public IEnumerable<Store> Stores { get; set; }
         public IEnumerable<Salesman> Salesmen { get; set; }
-        public Salesman PrmarySalesman { get; set; }
+        public Salesman PrimarySalesman { get; set; }
     }
 }

@@ -6,5 +6,9 @@ namespace CentricaTestClient.WPF.ViewModels
 {
     public class OrdersViewModel : ViewModelBase
     {
+        public OrdersViewModel()
+        {
+
+        }
     }
 }

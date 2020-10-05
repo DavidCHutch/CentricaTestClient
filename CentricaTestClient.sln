@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentricaTestClient.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentricaTestClient.WPF", "CentricaTestClient.WPF\CentricaTestClient.WPF.csproj", "{F370917D-FE73-4735-B2BC-6E61001ABA3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentricaTestClient.CentricaTestAPI", "CentricaTestClient.CentricaTestAPI\CentricaTestClient.CentricaTestAPI.csproj", "{3F40209C-75CC-4107-A56D-80B58277684C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F370917D-FE73-4735-B2BC-6E61001ABA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F370917D-FE73-4735-B2BC-6E61001ABA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F370917D-FE73-4735-B2BC-6E61001ABA3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F40209C-75CC-4107-A56D-80B58277684C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F40209C-75CC-4107-A56D-80B58277684C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F40209C-75CC-4107-A56D-80B58277684C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F40209C-75CC-4107-A56D-80B58277684C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

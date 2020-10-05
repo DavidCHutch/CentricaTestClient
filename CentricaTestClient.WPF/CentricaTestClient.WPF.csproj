@@ -13,13 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CentricaTestClient.CentricaTestAPI\CentricaTestClient.CentricaTestAPI.csproj" />
     <ProjectReference Include="..\CentricaTestClient.Domain\CentricaTestClient.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Styles\ListViewitem.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 
 </Project>

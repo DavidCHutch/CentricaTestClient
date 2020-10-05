@@ -8,16 +8,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CentricaTestClient.WPF.Views.District
+namespace CentricaTestClient.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for DistrictItemView.xaml
+    /// Interaction logic for DistrictList.xaml
     /// </summary>
-    public partial class DistrictItemView : Window
+    public partial class DistrictList : UserControl
     {
-        public DistrictItemView()
+        public DistrictList()
         {
             InitializeComponent();
         }

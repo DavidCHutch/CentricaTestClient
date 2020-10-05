@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CentricaTestClient.WPF.Views.District
+namespace CentricaTestClient.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for DistrictsView.xaml
+    /// Interaction logic for DistrictView.xaml
     /// </summary>
-    public partial class DistrictsView : UserControl
+    public partial class DistrictView : Page
     {
-        public DistrictsView()
+        public DistrictView()
         {
             InitializeComponent();
         }
