@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewmodels="clr-namespace:CentricaTestClient.WPF.ViewModels"
-             xmlns:views="clr-namespace:CentricaTestClient.WPF.Views">
-            
+             xmlns:views="clr-namespace:CentricaTestClient.WPF.Views"
+             xmlns:viewdialogs="clr-namespace:CentricaTestClient.WPF.Views.Dialog">
+
     <Application.Resources>
 
         <!--Merge styling-->
@@ -24,6 +25,18 @@
 
             <DataTemplate DataType="{x:Type viewmodels:OrdersViewModel}">
                 <views:OrdersView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <viewdialogs:LoginView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:DistrictItemViewModel}">
+                <viewdialogs:DistrictItemView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:SalesmanItemViewModel}">
+                <viewdialogs:SalesmanItemView/>
             </DataTemplate>
 
         </ResourceDictionary>

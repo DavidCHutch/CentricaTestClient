@@ -13,8 +13,7 @@ namespace CentricaTestClient.WPF.ViewModels
 {
     public class DistrictItemViewModel : ViewModelBase
     {
-        //private readonly IDistrictService _districtService;
-        private District _District;
+        private readonly IDistrictService _districtService;
         public ICommand OpenListOfAvailableSalesmenCommand => new OpenListOfAvailableSalesmenCommand(this);
         public ICommand PromoteSalesmanCommand => new PromoteSalesmanCommand(this);
         public ICommand RemoveSalesmanCommand => new RemoveSalesmanCommand(this); 
@@ -42,6 +41,32 @@ namespace CentricaTestClient.WPF.ViewModels
                 OnPropertyChanged("SelectedSalesMan");
             }
         }
+
+        private ObservableCollection<Salesman> _SalesMen;
+        public ObservableCollection<Salesman> SalesMen
+        {
+            get { return _SalesMen; }
+
+            set
+            {
+                _SalesMen = value;
+                OnPropertyChanged("SalesMen");
+            }
+        }
+
+        private ObservableCollection<Store> _Stores;
+        public ObservableCollection<Store> Stores
+        {
+            get { return _Stores; }
+
+            set
+            {
+                _Stores = value;
+                OnPropertyChanged("Stores");
+            }
+        }
+
+        private District _District;
         public District District
         {
             get { return _District; }
@@ -52,19 +77,49 @@ namespace CentricaTestClient.WPF.ViewModels
             }
         }
 
-        public DistrictItemViewModel(District district)
+        public DistrictItemViewModel(IDistrictService districtService, District district)
         {
-            District = district;
-            PopulateDistrict();
+            _districtService = districtService;
+            _District = district;
         }
 
-        private async void PopulateDistrict()
+        /// <summary>
+        /// Loads the viewmodel, can be used to instaniate the view model with loadDistrict instead of going through constructor
+        /// </summary>
+        /// <param name="districtService"></param>
+        /// <returns></returns>
+        public static DistrictItemViewModel LoadDistrictItemViewModel(IDistrictService districtService, District district)
         {
-            DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            District.Salesmen = await districtService.GetAllSalesmenInDistrict(District.ID.ToString());
-            District.Stores = await districtService.GetAllStoresInDistrict(District.ID.ToString());
+            DistrictItemViewModel districtItemViewModel = new DistrictItemViewModel(districtService, district);
+            districtItemViewModel.LoadSalesmanList();
+            districtItemViewModel.LoadStoresList();
 
-            District.PrimarySalesman = District.Salesmen.Where(s => s.IsPrimary).FirstOrDefault();
+            districtItemViewModel.District.PrimarySalesman = district.Salesmen.Where(s => s.IsPrimary).FirstOrDefault();
+            return districtItemViewModel;
+        }
+
+        private void LoadSalesmanList()
+        {
+            _districtService.GetAllSalesmenInDistrict(District.ID.ToString()).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    SalesMen = new ObservableCollection<Salesman>(task.Result);
+                    District.Salesmen = SalesMen;
+                }
+            });
+        }
+
+        private void LoadStoresList()
+        {
+            _districtService.GetAllStoresInDistrict(District.ID.ToString()).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    Stores = new ObservableCollection<Store>(task.Result);
+                    District.Stores = Stores;
+                }
+            });
         }
     }
 }

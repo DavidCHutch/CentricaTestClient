@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
-        xmlns:local="clr-namespace:CentricaTestClient.WPF.Views.Dialog"
-        xmlns:views="clr-namespace:CentricaTestClient.WPF.Views"
+        xmlns:local="clr-namespace:CentricaTestClient.WPF.ViewModels"
         mc:Ignorable="d"
         Title="DistrictItemView" Height="800" Width="1200">
     <Grid>
@@ -24,11 +23,11 @@
                 </TextBlock.Text>
             </TextBlock>
         </Grid>
-        <!--The underlying tables with salesman and store-->
-        <Grid Grid.Row="1" Background="{StaticResource BrushSnowStorm2}">
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400*"/>
-                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <!--Salesman table-->
             <Grid Grid.Column="0">
@@ -36,7 +35,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Center" Height="auto" Width="auto" Text="Salesman" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="0" FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Left" Height="auto" Width="auto" Text="Salesman" TextWrapping="Wrap"/>
                 <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -45,71 +44,56 @@
                     </Grid.ColumnDefinitions>
                     <!--Buttons-->
                     <Button Grid.Column="0" FontSize="15" Content="Promote" MinWidth="35" Width="auto" Height="auto" Margin="2"
-                            Command="{Binding PromoteSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
+                        Command="{Binding PromoteSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
                     <Button Grid.Column="1" FontSize="15" Content="Remove" MinWidth="35" Width="auto" Height="auto" Margin="2"
-                            Command="{Binding RemoveSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
+                        Command="{Binding RemoveSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
                     <Button Grid.Column="2" FontSize="15" Content="Add Salesman" MinWidth="35" Width="auto" Height="auto" Margin="2"
-                            Command="{Binding OpenListOfAvailableSalesmenCommand}"/>
+                        Command="{Binding OpenListOfAvailableSalesmenCommand}"/>
                 </Grid>
                 <ListView Grid.Row="1" 
-                            ItemsSource="{Binding District.Salesmen}"
-                            SelectedItem="{Binding SelectedSalesMan}">
+                    ItemsSource="{Binding SalesMen}"
+                    SelectedItem="{Binding SelectedSalesMan}">
                     <ListView.View>
                         <GridView>
-                            <!--TODO This must be changed-->
                             <GridViewColumn Width="Auto" 
-                                                          DisplayMemberBinding="{Binding ID}"
-                                                          Header="ID" />
+                                                        DisplayMemberBinding="{Binding ID}"
+                                                        Header="ID" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding FirstName}"
-                                                          Header="FirstName" />
+                                                        DisplayMemberBinding="{Binding FirstName}"
+                                                        Header="FirstName" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding LastName}"
-                                                          Header="LastName" />
+                                                        DisplayMemberBinding="{Binding LastName}"
+                                                        Header="LastName" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding Email}"
-                                                          Header="Email" />
+                                                        DisplayMemberBinding="{Binding Email}"
+                                                        Header="Email" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding IsPrimary}"
-                                                          Header="Is Primary" />
+                                                        DisplayMemberBinding="{Binding IsPrimary}"
+                                                        Header="Is Primary" />
                         </GridView>
                     </ListView.View>
                 </ListView>
             </Grid>
-            
-            <!--Store table-->
+            <!--Stores table-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Center" Height="auto" Width="auto" Text="Store" TextWrapping="Wrap"/>
-                <!--<Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" FontSize="15" Content="-" Width="31" Height="24"/>
-                    <Button Grid.Column="1" FontSize="15" Content="Add" MinWidth="35" Width="auto" Height="auto"/>
-                </Grid>-->
-                <ListView Grid.Row="1" ItemsSource="{Binding District.Stores}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <!--<EventSetter Event="MouseDoubleClick" Handler="ListViewItem_DoubleClick" />-->
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                <TextBlock Grid.Row="0" FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Left" Height="auto" Width="auto" Text="Store" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="0" FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Center" Height="auto" Width="auto" Text="{Binding District.Name}" TextWrapping="Wrap"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Stores}">
                     <ListView.View>
                         <GridView>
-                            <!--TODO This must be changed-->
                             <GridViewColumn Width="Auto" 
-                                                          DisplayMemberBinding="{Binding ID}"
-                                                          Header="ID" />
+                                                        DisplayMemberBinding="{Binding ID}"
+                                                        Header="ID" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding Number}"
-                                                          Header="Number" />
+                                                        DisplayMemberBinding="{Binding Number}"
+                                                        Header="Number" />
                             <GridViewColumn Width="Auto"
-                                                          DisplayMemberBinding="{Binding Name}"
-                                                          Header="Name" />
+                                                        DisplayMemberBinding="{Binding Name}"
+                                                        Header="Name" />
                         </GridView>
                     </ListView.View>
                 </ListView>

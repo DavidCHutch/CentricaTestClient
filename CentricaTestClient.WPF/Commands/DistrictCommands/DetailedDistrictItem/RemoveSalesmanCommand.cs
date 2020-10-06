@@ -1,4 +1,5 @@
 ﻿using CentricaTestClient.CentricaTestAPI.Services;
+using CentricaTestClient.Domain.Models;
 using CentricaTestClient.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,16 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         public async void Execute(object parameter)
         {
             DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            try
-            {
-                await districtService.RemoveSalesmanFromDistrict(_divm.District.ID.ToString(), _divm.SelectedSalesMan);
-            }
-            catch
+            _divm.ErrorText = "";
+            bool success = await districtService.RemoveSalesmanFromDistrict(_divm.District.ID.ToString(), _divm.SelectedSalesMan);
+
+            if (!success)
             {
                 _divm.ErrorText = "Could not remove salesman from district";
+            }
+            else
+            {
+                _divm.SalesMen.Remove(_divm.SelectedSalesMan);
             }
         }
     }

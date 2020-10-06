@@ -7,13 +7,12 @@
         mc:Ignorable="d"
         Title="Salesforce" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-        
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <controls:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}"/>
 
         <ContentControl Grid.Row="1" Content="{Binding Navigator.CurrentViewModel}">

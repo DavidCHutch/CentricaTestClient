@@ -9,6 +9,7 @@ namespace CentricaTestClient.WPF.States.Navigators
     public enum ViewType
     {
         Home,
+        Login,
         Orders
     }
 

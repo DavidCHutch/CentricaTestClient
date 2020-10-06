@@ -1,4 +1,5 @@
-﻿using CentricaTestClient.Domain.Models;
+﻿using CentricaTestClient.CentricaTestAPI.Services;
+using CentricaTestClient.Domain.Models;
 using CentricaTestClient.WPF.ViewModels;
 using CentricaTestClient.WPF.Views.Dialog;
 using Prism.Commands;
@@ -13,8 +14,10 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands
     {
         public event EventHandler CanExecuteChanged;
 
+
         public OpenDetailedDistrictViewFromListItemCommand()
         {
+
         }
 
         public bool CanExecute(object parameter)
@@ -28,7 +31,7 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands
             {
                 District district = (District)parameter;
                 DistrictItemView ditemview = new DistrictItemView();
-                ditemview.DataContext = new DistrictItemViewModel(district);
+                ditemview.DataContext = DistrictItemViewModel.LoadDistrictItemViewModel(new DistrictService(LoginViewModel._userName, LoginViewModel._passWord), district);
                 ditemview.ShowDialog();
             }
         }

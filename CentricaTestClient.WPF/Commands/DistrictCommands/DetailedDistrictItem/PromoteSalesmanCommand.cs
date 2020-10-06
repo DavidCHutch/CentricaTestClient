@@ -25,13 +25,17 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         public async void Execute(object parameter)
         {
             DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            try
-            {
-                await districtService.PromotePrimarySalesmanInDistrict(_divm.District.ID.ToString(), _divm.SelectedSalesMan);
-            }
-            catch
+
+            _divm.ErrorText = "";
+            bool success = await districtService.PromotePrimarySalesmanInDistrict(_divm.District.ID.ToString(), _divm.SelectedSalesMan);
+
+            if (!success)
             {
                 _divm.ErrorText = "Could not remove salesman from district";
+            }
+            else
+            {
+                _divm.District.PrimarySalesman = _divm.SelectedSalesMan;
             }
         }
     }

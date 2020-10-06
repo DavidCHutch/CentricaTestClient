@@ -111,28 +111,6 @@ namespace CentricaTestClient.CentricaTestAPI.Services
             return salesman;
         }
 
-        public async Task<IEnumerable<Salesman>> AddSalesmanToDistrict(string id)
-        {
-            IEnumerable<Salesman> salesman = new List<Salesman>();
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllForeignSalesman");
-            WebClient client = new WebClient();
-
-            //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
-            client.Credentials = new NetworkCredential(_userName, _password);
-
-            using (Stream data = client.OpenRead(uri))
-            {
-                using (StreamReader sr = new StreamReader(data))
-                {
-                    string result = await sr.ReadToEndAsync();
-                    Console.WriteLine(result);
-
-                    salesman = JsonConvert.DeserializeObject<IEnumerable<Salesman>>(result);
-                }
-            }
-            return salesman;
-        }
-
         public async Task<bool> AddSalesmanToDistrict(string id, Salesman salesman)
         {
             bool result = false;

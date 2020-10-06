@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CentricaTestClient.WPF.Views.Dialog"
         mc:Ignorable="d"
-        Title="Salesforce log in" Height="200" Width="300">
+        Title="Salesforce log in" Height="200" Width="300"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -36,9 +37,6 @@
                     Command="{Binding LoginCommand}"/>
             <Button Grid.Row="3" Grid.Column="0" FontSize="15" Content="Cancel" MaxWidth="50" MaxHeight="35" MinWidth="10" MinHeight="10"
                     Command="{Binding CancelCommand}"/>
-            
         </Grid>
-        
-
     </Grid>
 </Window>

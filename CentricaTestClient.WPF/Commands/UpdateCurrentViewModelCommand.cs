@@ -35,8 +35,8 @@ namespace CentricaTestClient.WPF.Commands
                     case ViewType.Home:
                         _navigator.CurrentViewModel = new HomeViewModel(DistrictViewModel.LoadDistrictsViewModel(new DistrictService(LoginViewModel._userName, LoginViewModel._passWord)));
                         break;
-                    //case ViewType.Districts:
-                    //    _navigator.CurrentViewModel = new DistrictsViewModel();
+                    //case ViewType.DetailedDistrict:
+                    //    _navigator.CurrentViewModel = new DistrictItemViewModel(DistrictViewModel.LoadDistrictsViewModel(new DistrictService(LoginViewModel._userName, LoginViewModel._passWord)));
                     //    break;
                     case ViewType.Orders:
                         _navigator.CurrentViewModel = new OrdersViewModel();

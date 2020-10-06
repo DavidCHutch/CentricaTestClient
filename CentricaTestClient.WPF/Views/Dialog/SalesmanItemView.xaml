@@ -26,7 +26,7 @@
                 </TextBlock>
             </Grid>
             <ListView Grid.Row="1"
-                        ItemsSource="{Binding Salesmen}" 
+                        ItemsSource="{Binding SalesMen}" 
                         SelectedItem="{Binding SelectedSalesMan}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -35,7 +35,6 @@
                 </i:Interaction.Triggers>
                 <ListView.View>
                     <GridView>
-                        <!--TODO This must be changed-->
                         <GridViewColumn Width="Auto" 
                                                           DisplayMemberBinding="{Binding ID}"
                                                           Header="ID" />

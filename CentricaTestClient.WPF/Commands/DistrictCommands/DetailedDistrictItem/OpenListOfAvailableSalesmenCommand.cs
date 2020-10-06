@@ -1,4 +1,5 @@
-﻿using CentricaTestClient.Domain.Models;
+﻿using CentricaTestClient.CentricaTestAPI.Services;
+using CentricaTestClient.Domain.Models;
 using CentricaTestClient.WPF.ViewModels;
 using CentricaTestClient.WPF.Views.Dialog;
 using System;
@@ -26,7 +27,8 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         public async void Execute(object parameter)
         {
             SalesmanItemView sitemview = new SalesmanItemView();
-            sitemview.DataContext = new SalesmanItemViewModel(_divm.District);
+            Action closeAction = new Action(sitemview.Close);
+            sitemview.DataContext = SalesmanItemViewModel.LoadSalesmanItemViewModel(new DistrictService(LoginViewModel._userName, LoginViewModel._passWord), _divm.District, closeAction);
             sitemview.ShowDialog();
         }
     }

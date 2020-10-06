@@ -1,5 +1,6 @@
 ﻿using CentricaTestClient.CentricaTestAPI.Services;
 using CentricaTestClient.Domain.Models;
+using CentricaTestClient.Domain.Services;
 using CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem;
 using CentricaTestClient.WPF.Views.Dialog;
 using System;
@@ -12,8 +13,10 @@ namespace CentricaTestClient.WPF.ViewModels
 {
     public class SalesmanItemViewModel : ViewModelBase
     {
+        private readonly IDistrictService _districtService;
         public Action CloseAction { get; private set; }
         public ICommand AddSalesmanCommand => new AddSalesmanCommand(this, CloseAction);
+
         public string _errorText;
         public string ErrorText
         {
@@ -25,51 +28,73 @@ namespace CentricaTestClient.WPF.ViewModels
                 OnPropertyChanged("ErrorText");
             }
         }
-        private Salesman _SelectedSalesman;
+
+        private Salesman _SelectedSalesMan;
         public Salesman SelectedSalesMan
         {
-            get { return _SelectedSalesman; }
+            get { return _SelectedSalesMan; }
 
             set
             {
-                _SelectedSalesman = value;
+                _SelectedSalesMan = value;
                 OnPropertyChanged("SelectedSalesMan");
             }
         }
-        private District _SelectedDistrict;
-        public District SelectedDistrict
+        private District _District;
+        public District District
         {
-            get { return _SelectedDistrict; }
+            get { return _District; }
 
             set
             {
-                _SelectedDistrict = value;
-                OnPropertyChanged("_SelectedDistrict");
+                _District = value;
+                OnPropertyChanged("District");
             }
         }
 
-        private IEnumerable<Salesman> _Salesmen;
-        public IEnumerable<Salesman> Salesmen
+        private ObservableCollection<Salesman> _SalesMen;
+        public ObservableCollection<Salesman> SalesMen
         {
-            get { return _Salesmen; }
+            get { return _SalesMen; }
 
             set
             {
-                _Salesmen = value;
-                OnPropertyChanged("Salesmen");
+                _SalesMen = value;
+                OnPropertyChanged("SalesMen");
             }
         }
 
-        public SalesmanItemViewModel(District selectedDistrict)
+        public SalesmanItemViewModel(IDistrictService districtService, District selectedDistrict, Action close)
         {
-            _SelectedDistrict = selectedDistrict;
-            PopulateSalesman();
+            _districtService = districtService;
+            _District = selectedDistrict;
+            CloseAction = close;
         }
 
-        private async void PopulateSalesman()
+        /// <summary>
+        /// Loads the viewmodel, can be used to instaniate the view model instead of going through constructor
+        /// </summary>
+        /// <param name="districtService"></param>
+        /// <returns></returns>
+        public static SalesmanItemViewModel LoadSalesmanItemViewModel(IDistrictService districtService, District district, Action close)
         {
-            DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            Salesmen = await districtService.GetAllSalesmenOutsideDistrict(SelectedDistrict.ID.ToString());
+            SalesmanItemViewModel districtItemViewModel = new SalesmanItemViewModel(districtService, district, close);
+            districtItemViewModel.LoadSalesmanList();
+
+            return districtItemViewModel;
         }
+
+        private void LoadSalesmanList()
+        {
+            _districtService.GetAllSalesmenOutsideDistrict(District.ID.ToString()).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    SalesMen = new ObservableCollection<Salesman>(task.Result);
+                    District.Salesmen = SalesMen;
+                }
+            });
+        }
+
     }
 }
