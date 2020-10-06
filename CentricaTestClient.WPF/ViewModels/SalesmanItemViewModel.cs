@@ -1,24 +1,19 @@
 ﻿using CentricaTestClient.CentricaTestAPI.Services;
 using CentricaTestClient.Domain.Models;
-using CentricaTestClient.Domain.Services;
 using CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem;
+using CentricaTestClient.WPF.Views.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
 namespace CentricaTestClient.WPF.ViewModels
 {
-    public class DistrictItemViewModel : ViewModelBase
+    public class SalesmanItemViewModel : ViewModelBase
     {
-        //private readonly IDistrictService _districtService;
-        private District _District;
-        public ICommand OpenListOfAvailableSalesmenCommand => new OpenListOfAvailableSalesmenCommand(this);
-        public ICommand PromoteSalesmanCommand => new PromoteSalesmanCommand(this);
-        public ICommand RemoveSalesmanCommand => new RemoveSalesmanCommand(this); 
-        
+        public Action CloseAction { get; private set; }
+        public ICommand AddSalesmanCommand => new AddSalesmanCommand(this, CloseAction);
         public string _errorText;
         public string ErrorText
         {
@@ -30,7 +25,6 @@ namespace CentricaTestClient.WPF.ViewModels
                 OnPropertyChanged("ErrorText");
             }
         }
-
         private Salesman _SelectedSalesman;
         public Salesman SelectedSalesMan
         {
@@ -42,29 +36,40 @@ namespace CentricaTestClient.WPF.ViewModels
                 OnPropertyChanged("SelectedSalesMan");
             }
         }
-        public District District
+        private District _SelectedDistrict;
+        public District SelectedDistrict
         {
-            get { return _District; }
+            get { return _SelectedDistrict; }
+
             set
             {
-                _District = value;
-                OnPropertyChanged(String.Empty);
+                _SelectedDistrict = value;
+                OnPropertyChanged("_SelectedDistrict");
             }
         }
 
-        public DistrictItemViewModel(District district)
+        private IEnumerable<Salesman> _Salesmen;
+        public IEnumerable<Salesman> Salesmen
         {
-            District = district;
-            PopulateDistrict();
+            get { return _Salesmen; }
+
+            set
+            {
+                _Salesmen = value;
+                OnPropertyChanged("Salesmen");
+            }
         }
 
-        private async void PopulateDistrict()
+        public SalesmanItemViewModel(District selectedDistrict)
+        {
+            _SelectedDistrict = selectedDistrict;
+            PopulateSalesman();
+        }
+
+        private async void PopulateSalesman()
         {
             DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            District.Salesmen = await districtService.GetAllSalesmenInDistrict(District.ID.ToString());
-            District.Stores = await districtService.GetAllStoresInDistrict(District.ID.ToString());
-
-            District.PrimarySalesman = District.Salesmen.Where(s => s.IsPrimary).FirstOrDefault();
+            Salesmen = await districtService.GetAllSalesmenOutsideDistrict(SelectedDistrict.ID.ToString());
         }
     }
 }

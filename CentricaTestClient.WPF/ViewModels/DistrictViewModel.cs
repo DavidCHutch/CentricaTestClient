@@ -1,6 +1,6 @@
 ﻿using CentricaTestClient.Domain.Models;
 using CentricaTestClient.Domain.Services;
-using CentricaTestClient.WPF.Commands;
+using CentricaTestClient.WPF.Commands.DistrictCommands;
 using CentricaTestClient.WPF.Models;
 using CentricaTestClient.WPF.Views.Dialog;
 using Prism.Commands;
@@ -17,8 +17,8 @@ namespace CentricaTestClient.WPF.ViewModels
     public class DistrictViewModel : ViewModelBase
     {
         private readonly IDistrictService _districtService;
+        public ICommand OpenDetailedDistrictViewFromListItemCommand => new OpenDetailedDistrictViewFromListItemCommand();
         private District _SelectedDistrict;
-        public ICommand OpenNewWindowFromListItemCommand => new OpenNewWindowFromListItemCommand();
         public District SelectedDistrict
         {
             get { return _SelectedDistrict; }

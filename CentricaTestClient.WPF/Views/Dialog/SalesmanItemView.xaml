@@ -1,0 +1,59 @@
+﻿<Window x:Class="CentricaTestClient.WPF.Views.Dialog.SalesmanItemView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CentricaTestClient.WPF.Views.Dialog"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="SalesmanItemView" Height="450" Width="800">
+    <Grid>
+        <!--Salesman table-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Title with district name and number-->
+            <Grid Grid.Row="0" Background="{StaticResource BrushSnowStorm3}">
+                <TextBlock FontSize="26" Foreground="{StaticResource BrushPolarNight1}" HorizontalAlignment="Center" Height="auto" Width="auto" TextWrapping="Wrap">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Add salesman to district: {0} - {1}">
+                            <Binding Path="District.Name" FallbackValue=""/>
+                            <Binding Path="District.ID" FallbackValue=""/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+            <ListView Grid.Row="1"
+                        ItemsSource="{Binding Salesmen}" 
+                        SelectedItem="{Binding SelectedSalesMan}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding AddSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.View>
+                    <GridView>
+                        <!--TODO This must be changed-->
+                        <GridViewColumn Width="Auto" 
+                                                          DisplayMemberBinding="{Binding ID}"
+                                                          Header="ID" />
+                        <GridViewColumn Width="Auto"
+                                                          DisplayMemberBinding="{Binding FirstName}"
+                                                          Header="FirstName" />
+                        <GridViewColumn Width="Auto"
+                                                          DisplayMemberBinding="{Binding LastName}"
+                                                          Header="LastName" />
+                        <GridViewColumn Width="Auto"
+                                                          DisplayMemberBinding="{Binding Email}"
+                                                          Header="Email" />
+                        <GridViewColumn Width="Auto"
+                                                          DisplayMemberBinding="{Binding IsPrimary}"
+                                                          Header="Is Primary" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

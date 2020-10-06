@@ -54,7 +54,6 @@ namespace CentricaTestClient.WPF.ViewModels
 
         }
 
-
         public static void ShowView()
         {
             LoginView lView = new LoginView();
@@ -62,11 +61,6 @@ namespace CentricaTestClient.WPF.ViewModels
             lVm.CloseAction = new Action(lView.Close);
             lView.DataContext = lVm;
             lView.ShowDialog();
-        }
-
-        public void LoginExecute()
-        {
-
         }
 
     }

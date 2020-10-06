@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentricaTestClient.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentricaTestClient.WPF", "CentricaTestClient.WPF\CentricaTestClient.WPF.csproj", "{F370917D-FE73-4735-B2BC-6E61001ABA3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentricaTestClient.CentricaTestAPI", "CentricaTestClient.CentricaTestAPI\CentricaTestClient.CentricaTestAPI.csproj", "{3F40209C-75CC-4107-A56D-80B58277684C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentricaTestClient.CentricaTestAPI", "CentricaTestClient.CentricaTestAPI\CentricaTestClient.CentricaTestAPI.csproj", "{3F40209C-75CC-4107-A56D-80B58277684C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

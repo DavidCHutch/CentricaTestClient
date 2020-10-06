@@ -7,15 +7,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace CentricaTestClient.WPF.Commands
+namespace CentricaTestClient.WPF.Commands.DistrictCommands
 {
-    public class OpenNewWindowFromListItemCommand : ICommand
+    public class OpenDetailedDistrictViewFromListItemCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        private District District { get; set; }
-
-        public OpenNewWindowFromListItemCommand()
+        public OpenDetailedDistrictViewFromListItemCommand()
         {
         }
 
@@ -29,10 +27,6 @@ namespace CentricaTestClient.WPF.Commands
             if (parameter is District)
             {
                 District district = (District)parameter;
-                Console.WriteLine("_listViewItem_DoubleClick has been activated");
-                //Dialog.DataContext = DialogViewModel
-                //Dialog.ShowDialog()
-                //DistrictService dCall = new DistrictCaller();
                 DistrictItemView ditemview = new DistrictItemView();
                 ditemview.DataContext = new DistrictItemViewModel(district);
                 ditemview.ShowDialog();

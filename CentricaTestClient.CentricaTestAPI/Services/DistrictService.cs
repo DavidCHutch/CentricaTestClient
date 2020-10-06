@@ -88,5 +88,133 @@ namespace CentricaTestClient.CentricaTestAPI.Services
             }
             return store;
         }
+
+        public async Task<IEnumerable<Salesman>> GetAllSalesmenOutsideDistrict(string id)
+        {
+            IEnumerable<Salesman> salesman = new List<Salesman>();
+            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllForeignSalesman");
+            WebClient client = new WebClient();
+
+            //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
+            client.Credentials = new NetworkCredential(_userName, _password);
+
+            using (Stream data = client.OpenRead(uri))
+            {
+                using (StreamReader sr = new StreamReader(data))
+                {
+                    string result = await sr.ReadToEndAsync();
+                    Console.WriteLine(result);
+
+                    salesman = JsonConvert.DeserializeObject<IEnumerable<Salesman>>(result);
+                }
+            }
+            return salesman;
+        }
+
+        public async Task<IEnumerable<Salesman>> AddSalesmanToDistrict(string id)
+        {
+            IEnumerable<Salesman> salesman = new List<Salesman>();
+            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllForeignSalesman");
+            WebClient client = new WebClient();
+
+            //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
+            client.Credentials = new NetworkCredential(_userName, _password);
+
+            using (Stream data = client.OpenRead(uri))
+            {
+                using (StreamReader sr = new StreamReader(data))
+                {
+                    string result = await sr.ReadToEndAsync();
+                    Console.WriteLine(result);
+
+                    salesman = JsonConvert.DeserializeObject<IEnumerable<Salesman>>(result);
+                }
+            }
+            return salesman;
+        }
+
+        public async Task<bool> AddSalesmanToDistrict(string id, Salesman salesman)
+        {
+            bool result = false;
+            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/AddSalesmanToDistrict");
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Credentials = new NetworkCredential(_userName, _password);
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var response = client.UploadString(uri,
+                        WebRequestMethods.Http.Put,
+                        JsonConvert.SerializeObject(salesman));
+
+                    //TODO ALTER LATER
+                    if (response != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public async Task<bool> RemoveSalesmanFromDistrict(string id, Salesman salesman)
+        {
+            bool result = false;
+            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/RemoveSalesmanFromDistrict");
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Credentials = new NetworkCredential(_userName, _password);
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var response = client.UploadString(uri,
+                        "DELETE",
+                        JsonConvert.SerializeObject(salesman));
+
+                    //TODO ALTER LATER
+                    if (response != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public async Task<bool> PromotePrimarySalesmanInDistrict(string id, Salesman salesmanPromote)
+        {
+            bool result = false;
+            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/PromotePrimarySalesMan");
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Credentials = new NetworkCredential(_userName, _password);
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var response = client.UploadString(uri,
+                        WebRequestMethods.Http.Put,
+                        JsonConvert.SerializeObject(salesmanPromote));
+
+                    //TODO ALTER LATER
+                    if (response != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
     }
 }

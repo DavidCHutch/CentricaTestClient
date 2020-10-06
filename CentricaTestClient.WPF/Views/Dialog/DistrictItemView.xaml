@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
         xmlns:local="clr-namespace:CentricaTestClient.WPF.Views.Dialog"
         xmlns:views="clr-namespace:CentricaTestClient.WPF.Views"
-        Title="DistrictItemView" Height="450" Width="800">
-    <!--<Window.DataContext>
-        <views:DistrictView/>
-    </Window.DataContext>-->
+        mc:Ignorable="d"
+        Title="DistrictItemView" Height="800" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,8 +18,8 @@
             <TextBlock FontSize="26" Foreground="{StaticResource BrushPolarNight1}" TextTrimming="CharacterEllipsis" Width="Auto">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="District: {0} - {1}">
-                        <Binding Path="Name" FallbackValue="Empty"/>
-                        <Binding Path="ID" FallbackValue="Empty"/>
+                        <Binding Path="District.Name" FallbackValue="Empty"/>
+                        <Binding Path="District.ID" FallbackValue="Empty"/>
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
@@ -42,12 +40,20 @@
                 <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <!--<Button Grid.Column="0" FontSize="15" Content="-" Width="31" Height="24"/>-->
-                    <Button Grid.Column="1" FontSize="15" Content="Add" MinWidth="35" Width="auto" Height="auto"/>
+                    <!--Buttons-->
+                    <Button Grid.Column="0" FontSize="15" Content="Promote" MinWidth="35" Width="auto" Height="auto" Margin="2"
+                            Command="{Binding PromoteSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
+                    <Button Grid.Column="1" FontSize="15" Content="Remove" MinWidth="35" Width="auto" Height="auto" Margin="2"
+                            Command="{Binding RemoveSalesmanCommand}" CommandParameter="{Binding SelectedSalesMan}"/>
+                    <Button Grid.Column="2" FontSize="15" Content="Add Salesman" MinWidth="35" Width="auto" Height="auto" Margin="2"
+                            Command="{Binding OpenListOfAvailableSalesmenCommand}"/>
                 </Grid>
-                <ListView Grid.Row="1" ItemsSource="{Binding District.Salesmen}">
+                <ListView Grid.Row="1" 
+                            ItemsSource="{Binding District.Salesmen}"
+                            SelectedItem="{Binding SelectedSalesMan}">
                     <ListView.View>
                         <GridView>
                             <!--TODO This must be changed-->
