@@ -15,7 +15,7 @@ namespace CentricaTestClient.WPF.ViewModels
     {
         private readonly IDistrictService _districtService;
         public Action CloseAction { get; private set; }
-        public ICommand AddSalesmanCommand => new AddSalesmanCommand(this, CloseAction);
+        public ICommand AddSalesmanCommand => new AddSalesmanCommand(this, CloseAction, DistrictItemViewModel);
 
         public string _errorText;
         public string ErrorText
@@ -40,15 +40,16 @@ namespace CentricaTestClient.WPF.ViewModels
                 OnPropertyChanged("SelectedSalesMan");
             }
         }
-        private District _District;
-        public District District
+
+        private DistrictItemViewModel _districtItemViewModel;
+        public DistrictItemViewModel DistrictItemViewModel
         {
-            get { return _District; }
+            get { return _districtItemViewModel; }
 
             set
             {
-                _District = value;
-                OnPropertyChanged("District");
+                _districtItemViewModel = value;
+                OnPropertyChanged("DistrictItemViewModel");
             }
         }
 
@@ -64,10 +65,10 @@ namespace CentricaTestClient.WPF.ViewModels
             }
         }
 
-        public SalesmanItemViewModel(IDistrictService districtService, District selectedDistrict, Action close)
+        public SalesmanItemViewModel(IDistrictService districtService, Action close, DistrictItemViewModel dIvm)
         {
+            _districtItemViewModel = dIvm;
             _districtService = districtService;
-            _District = selectedDistrict;
             CloseAction = close;
         }
 
@@ -76,9 +77,9 @@ namespace CentricaTestClient.WPF.ViewModels
         /// </summary>
         /// <param name="districtService"></param>
         /// <returns></returns>
-        public static SalesmanItemViewModel LoadSalesmanItemViewModel(IDistrictService districtService, District district, Action close)
+        public static SalesmanItemViewModel LoadSalesmanItemViewModel(IDistrictService districtService, Action close, DistrictItemViewModel dIvm)
         {
-            SalesmanItemViewModel districtItemViewModel = new SalesmanItemViewModel(districtService, district, close);
+            SalesmanItemViewModel districtItemViewModel = new SalesmanItemViewModel(districtService, close, dIvm);
             districtItemViewModel.LoadSalesmanList();
 
             return districtItemViewModel;
@@ -86,12 +87,11 @@ namespace CentricaTestClient.WPF.ViewModels
 
         private void LoadSalesmanList()
         {
-            _districtService.GetAllSalesmenOutsideDistrict(District.ID.ToString()).ContinueWith(task =>
+            _districtService.GetAllSalesmenOutsideDistrict(_districtItemViewModel.District.ID.ToString()).ContinueWith(task =>
             {
                 if (task.Exception == null)
                 {
                     SalesMen = new ObservableCollection<Salesman>(task.Result);
-                    District.Salesmen = SalesMen;
                 }
             });
         }

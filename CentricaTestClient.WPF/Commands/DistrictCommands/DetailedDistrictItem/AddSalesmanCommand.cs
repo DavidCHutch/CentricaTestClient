@@ -15,9 +15,11 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         public event EventHandler CanExecuteChanged;
         public Action CloseAction { get; set; }
         private SalesmanItemViewModel _sivm { get; set; }
-        
-        public AddSalesmanCommand(SalesmanItemViewModel salesmanViewModel, Action closeAction)
+        private DistrictItemViewModel _divm { get; set; }
+
+        public AddSalesmanCommand(SalesmanItemViewModel salesmanViewModel, Action closeAction, DistrictItemViewModel districtItemViewModel)
         {
+            _divm = districtItemViewModel;
             _sivm = salesmanViewModel;
             CloseAction = closeAction;
         }
@@ -31,7 +33,7 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         {
             DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
             _sivm.ErrorText = "";
-            bool success = await districtService.AddSalesmanToDistrict(_sivm.District.ID.ToString(), _sivm.SelectedSalesMan);
+            bool success = await districtService.AddSalesmanToDistrict(_sivm.DistrictItemViewModel.District.ID.ToString(), _sivm.SelectedSalesMan);
 
             if (!success)
             {
@@ -39,7 +41,7 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
             }
             else
             {
-                _sivm.District.Salesmen.ToList().Add(_sivm.SelectedSalesMan);
+                _divm.SalesMen.ToList().Add(_sivm.SelectedSalesMan);
             }
 
             CloseAction();

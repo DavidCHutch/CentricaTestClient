@@ -16,6 +16,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
     {
         private string _userName;
         private string _password;
+        private readonly string _dConString = $"https://localhost:44337/centrica/api/district/";
 
         public DistrictService(string userName, string passWord)
         {
@@ -26,7 +27,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<IEnumerable<District>> GetAllDistricts()
         {
             IEnumerable<District> districts = new List<District>();
-            Uri uri = new Uri($"https://localhost:44337/api/district/getall");
+            Uri uri = new Uri(_dConString + "getall");
             WebClient client = new WebClient();
 
             //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
@@ -48,10 +49,9 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<IEnumerable<Salesman>> GetAllSalesmenInDistrict(string id)
         {
             IEnumerable<Salesman> salesman = new List<Salesman>();
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllSalesman");
+            Uri uri = new Uri(_dConString + id + "/GetAllSalesman");
             WebClient client = new WebClient();
 
-            //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
             client.Credentials = new NetworkCredential(_userName, _password);
 
             using (Stream data = client.OpenRead(uri))
@@ -70,7 +70,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<IEnumerable<Store>> GetAllStoresInDistrict(string id)
         {
             IEnumerable<Store> store = new List<Store>();
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllStores");
+            Uri uri = new Uri(_dConString + id + "/GetAllStores");
             WebClient client = new WebClient();
 
             //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
@@ -92,7 +92,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<IEnumerable<Salesman>> GetAllSalesmenOutsideDistrict(string id)
         {
             IEnumerable<Salesman> salesman = new List<Salesman>();
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/GetAllForeignSalesman");
+            Uri uri = new Uri(_dConString + id + "/GetAllForeignSalesman");
             WebClient client = new WebClient();
 
             //TODO Constants needs to be created, as it is for windows auth purposes and uses real usernam password atm
@@ -114,7 +114,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<bool> AddSalesmanToDistrict(string id, Salesman salesman)
         {
             bool result = false;
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/AddSalesmanToDistrict");
+            Uri uri = new Uri(_dConString + id + "/AddSalesmanToDistrict");
             try
             {
                 using (WebClient client = new WebClient())
@@ -142,7 +142,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<bool> RemoveSalesmanFromDistrict(string id, Salesman salesman)
         {
             bool result = false;
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/RemoveSalesmanFromDistrict");
+            Uri uri = new Uri(_dConString + id + "/RemoveSalesmanFromDistrict");
             try
             {
                 using (WebClient client = new WebClient())
@@ -170,7 +170,7 @@ namespace CentricaTestClient.CentricaTestAPI.Services
         public async Task<bool> PromotePrimarySalesmanInDistrict(string id, Salesman salesmanPromote)
         {
             bool result = false;
-            Uri uri = new Uri($"https://localhost:44337/api/district/" + id + "/PromotePrimarySalesMan");
+            Uri uri = new Uri(_dConString + id + "/PromotePrimarySalesMan");
             try
             {
                 using (WebClient client = new WebClient())

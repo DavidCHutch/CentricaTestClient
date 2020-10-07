@@ -16,8 +16,8 @@ namespace CentricaTestClient.WPF.ViewModels
         private readonly IDistrictService _districtService;
         public ICommand OpenListOfAvailableSalesmenCommand => new OpenListOfAvailableSalesmenCommand(this);
         public ICommand PromoteSalesmanCommand => new PromoteSalesmanCommand(this);
-        public ICommand RemoveSalesmanCommand => new RemoveSalesmanCommand(this); 
-        
+        public ICommand RemoveSalesmanCommand => new RemoveSalesmanCommand(this);
+
         public string _errorText;
         public string ErrorText
         {

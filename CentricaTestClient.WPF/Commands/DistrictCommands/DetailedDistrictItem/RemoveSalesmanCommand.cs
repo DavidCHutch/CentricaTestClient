@@ -3,6 +3,7 @@ using CentricaTestClient.Domain.Models;
 using CentricaTestClient.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -26,7 +27,7 @@ namespace CentricaTestClient.WPF.Commands.DistrictCommands.DetailedDistrictItem
         public async void Execute(object parameter)
         {
             DistrictService districtService = new DistrictService(LoginViewModel._userName, LoginViewModel._passWord);
-            _divm.ErrorText = "";
+
             bool success = await districtService.RemoveSalesmanFromDistrict(_divm.District.ID.ToString(), _divm.SelectedSalesMan);
 
             if (!success)
