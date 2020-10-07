@@ -54,6 +54,9 @@ namespace CentricaTestClient.WPF.ViewModels
 
         }
 
+        /// <summary>
+        /// Shows the login dialog window
+        /// </summary>
         public static void ShowView()
         {
             LoginView lView = new LoginView();

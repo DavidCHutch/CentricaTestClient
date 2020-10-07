@@ -5,6 +5,10 @@ using System.Windows.Input;
 
 namespace CentricaTestClient.WPF.Commands
 {
+    /// <summary>
+    /// Cancels the login, only closes it. 
+    /// </summary>
+    //TODO: CHANGE THIS
     public class CancelLoginCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

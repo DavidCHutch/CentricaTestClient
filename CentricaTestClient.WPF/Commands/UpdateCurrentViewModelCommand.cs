@@ -9,6 +9,9 @@ using System.Windows.Input;
 
 namespace CentricaTestClient.WPF.Commands
 {
+    /// <summary>
+    /// Updates the current viewmodel - Used for navigation atm with navbar
+    /// </summary>
     public class UpdateCurrentViewModelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

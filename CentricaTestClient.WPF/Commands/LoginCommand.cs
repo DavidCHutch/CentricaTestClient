@@ -7,6 +7,10 @@ using System.Windows.Input;
 
 namespace CentricaTestClient.WPF.Commands
 {
+    /// <summary>
+    /// Simple logincommand that checks if it can reach the database.
+    /// </summary>
+    //TODO: CHANGE THIS LATER
     public class LoginCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace CentricaTestClient.WPF.ViewModels
 {
+    /// <summary>
+    /// Item view model. This view is for adding foreign salesman to a district
+    /// </summary>
     public class SalesmanItemViewModel : ViewModelBase
     {
         private readonly IDistrictService _districtService;
@@ -85,6 +88,9 @@ namespace CentricaTestClient.WPF.ViewModels
             return districtItemViewModel;
         }
 
+        /// <summary>
+        /// Loads the list of salesman needed to populate the data grid 
+        /// </summary>
         private void LoadSalesmanList()
         {
             _districtService.GetAllSalesmenOutsideDistrict(_districtItemViewModel.District.ID.ToString()).ContinueWith(task =>

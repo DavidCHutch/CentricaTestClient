@@ -98,6 +98,9 @@ namespace CentricaTestClient.WPF.ViewModels
             return districtItemViewModel;
         }
 
+        /// <summary>
+        /// Loads list of salesmen to populate the salesmanlist in districtitemview.xaml
+        /// </summary>
         private void LoadSalesmanList()
         {
             _districtService.GetAllSalesmenInDistrict(District.ID.ToString()).ContinueWith(task =>
@@ -110,6 +113,9 @@ namespace CentricaTestClient.WPF.ViewModels
             });
         }
 
+        /// <summary>
+        /// Loads list of stores to populate the storeslist in districtitemview.xaml
+        /// </summary>
         private void LoadStoresList()
         {
             _districtService.GetAllStoresInDistrict(District.ID.ToString()).ContinueWith(task =>
